@@ -13,14 +13,9 @@ export default {
   },
   methods: {
     getRequestLogs() {
-      axios.post(
-          "http://localhost:42069/api/requestLogger/getByPageWithFilter",
-          this.body
-      ).then(
-          (res) => {
-            this.data = res.data.data;
-          }
-      ).catch((err) => { console.log('Axios Error:', err); });
+      axios.post("http://localhost:42069/api/requestLogger/getByPageWithFilter", this.body)
+      .then(res => this.data = res.data.data)
+      .catch(err => console.log('Axios Error:', err) );
     }
   },
   mounted() {
@@ -47,7 +42,7 @@ export default {
           v-model:current-page="body.pageNum"
           v-model:page-size="body.pageSize"
           :total="data.total"
-          layout="prev, pager, next, -> , sizes, total"/>
+          layout="prev, pager, next, ->, sizes, total"/>
     </div>
   </div>
 </template>
