@@ -8,7 +8,11 @@ export default {
       body: {
         pageNum: 1,
         pageSize: 10
-      }
+      },
+      httpMethods: [
+          "POST",
+          "GET"
+      ]
     }
   },
   methods: {
@@ -26,6 +30,24 @@ export default {
 </script>
 <template>
   <div>
+    <el-select v-model="value" placeholder="Select">
+      <el-option
+          v-for="item in httpMethods"
+          :key="item"
+          :label="item"
+          :value="item">
+      </el-option>
+    </el-select>
+    <el-input placeholder="URL"></el-input>
+    <el-input placeholder="Content"></el-input>
+    <el-input placeholder="Content Type"></el-input>
+    <el-date-picker
+        type="datetimerange"
+        range-separator="To"
+        start-placeholder="Start date"
+        end-placeholder="End date">
+    </el-date-picker>
+
     <el-table
         :data="data.list"
         style="width: 100%; margin-bottom: 20px">
