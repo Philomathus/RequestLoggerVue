@@ -1,47 +1,47 @@
+<script>
+import axios from "axios";
+
+export default {
+  data() {
+    return {
+      requestLogs: [],
+      pageNum: 1,
+      pageSize: 10,
+      total: 0
+    }
+  },
+  methods: {
+    getRequestLogs(body) {
+      axios.post("http://localhost:42069/api/requestLogger/getByPageWithFilter",
+          body = {}).then(
+          (res) => {
+            this.requestLogs = res.data.data.list;
+            this.total = res.data.data.total;
+            console.log(this.requestLogs)
+          }).catch((err) => { console.log('Axios Error:', err); });
+    }
+  },
+  mounted() {
+    this.getRequestLogs();
+  }
+}
+
+</script>
 <template>
-  <p>Basic text button</p>
-  <div class="flex justify-space-between mb-4 flex-wrap gap-4">
-    <el-button
-        v-for="button in buttons"
-        :key="button.text"
-        :type="button.type"
-        text
-    >{{ button.text }}</el-button
-    >
-  </div>
-
-  <p>Background color always on</p>
-  <div class="flex justify-space-between mb-4 flex-wrap gap-4">
-    <el-button
-        v-for="button in buttons"
-        :key="button.text"
-        :type="button.type"
-        text
-        bg
-    >{{ button.text }}</el-button
-    >
-  </div>
-
-  <p>Disabled text button</p>
-  <div class="flex justify-space-between flex-wrap gap-4">
-    <el-button
-        v-for="button in buttons"
-        :key="button.text"
-        :type="button.type"
-        text
-        disabled
-    >{{ button.text }}</el-button
-    >
+  <div>
+    <el-table
+        :data = "requestLogs"
+        style="width: 1000%; margin-bottom: 20px"
+        row-key="id">
+      <el-table-column width='200' prop="createdAt" label="Date"  />
+      <el-table-column width='200' prop="method" label="Method"  />
+      <el-table-column width='200' prop="url" label="URL"  />
+      <el-table-column width='200' prop="contentType" label="Content Type"  />
+      <el-table-column width='200' prop="content" label="Content"  />
+    </el-table>
+    <div class="example-pagination-block">
+      <el-pagination :page-size="pageSize" @next-click="getRequestLogs({ pageNum: pageNum, pageSize: pageSize })" :page-count="pageNum" layout="prev, pager, next" :total="total" />
+    </div>
   </div>
 </template>
 
-<script setup lang="ts">
-const buttons = [
-  { type: '', text: 'plain' },
-  { type: 'primary', text: 'primary' },
-  { type: 'success', text: 'success' },
-  { type: 'info', text: 'info' },
-  { type: 'warning', text: 'warning' },
-  { type: 'danger', text: 'danger' },
-] as const
-</script>
