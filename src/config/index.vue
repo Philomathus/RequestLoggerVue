@@ -7,18 +7,30 @@ export default {
       requestLogs: [],
       pageNum: 1,
       pageSize: 10,
+      pages: 0,
       total: 0
     }
   },
   methods: {
-    getRequestLogs(body) {
-      axios.post("http://localhost:42069/api/requestLogger/getByPageWithFilter",
-          body = {}).then(
+    getRequestLogs(body = {}) {
+      axios.post(
+          "http://localhost:42069/api/requestLogger/getByPageWithFilter",
+          body
+      ).then(
           (res) => {
             this.requestLogs = res.data.data.list;
+            this.pages = res.data.data.pages;
             this.total = res.data.data.total;
-            console.log(this.requestLogs)
-          }).catch((err) => { console.log('Axios Error:', err); });
+          }
+      ).catch((err) => { console.log('Axios Error:', err); });
+    },
+    nextPage() {
+      this.pageNum++;
+      this.getRequestLogs({ pageNum: this.pageNum, pageSize: this.pageSize });
+    },
+    prevPage() {
+      this.pageNum--;
+      this.getRequestLogs({ pageNum: this.pageNum, pageSize: this.pageSize });
     }
   },
   mounted() {
@@ -40,7 +52,7 @@ export default {
       <el-table-column width='200' prop="content" label="Content"  />
     </el-table>
     <div class="example-pagination-block">
-      <el-pagination :page-size="pageSize" @next-click="getRequestLogs({ pageNum: pageNum, pageSize: pageSize })" :page-count="pageNum" layout="prev, pager, next" :total="total" />
+      <el-pagination :page-count="pages" :total="total" @next-click="nextPage" @prev-click="prevPage" layout="prev, pager, next"/>
     </div>
   </div>
 </template>
