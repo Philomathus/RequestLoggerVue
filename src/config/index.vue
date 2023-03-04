@@ -64,65 +64,69 @@ export default {
 </script>
 <template>
   <div>
-      <el-row :gutter="5">
-        <el-col :xs="8" :sm="6" :md="4" :lg="3" :xl="1">
-          <el-select v-model="method" placeholder="Select">
-            <el-option
-                v-for="item in httpMethods"
-                :label="item.label"
-                :value="item.value">
-            </el-option>
-          </el-select>
-        </el-col>
-        <el-col :xs="8" :sm="6" :md="4" :lg="3" :xl="1">
-          <el-input v-model="url" placeholder="URL"/>
-        </el-col>
-        <el-col :xs="8" :sm="6" :md="4" :lg="3">
-          <el-input v-model="content" placeholder="Content"/>
-        </el-col>
-        <el-col :xs="8" :sm="6" :md="4" :lg="3">
-          <el-input v-model="contentType" placeholder="Content Type"/>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col style="margin-top: 10px" :xs="2" :sm="2" :md="2" :lg="2">
-          <el-date-picker
-              v-model="createdAtRange"
-              type="datetimerange"
-              range-separator="To"
-              start-placeholder="Start date"
-              end-placeholder="End date">
-          </el-date-picker>
-        </el-col>
-      </el-row>
-      <el-button style="margin-top: 10px" type="primary" @click="filter">Filter</el-button>
-      <el-button style="margin-top: 10px" @click="reset">Reset</el-button>
-      <el-divider/>
+    <el-row :gutter="10">
+      <el-col :xs="8" :sm="6" :md="4" :lg="3" :xl="5">
+        <el-select v-model="method" placeholder="Select" style="width: 100%">
+          <el-option
+              v-for="item in httpMethods"
+              :label="item.label"
+              :value="item.value">
+          </el-option>
+        </el-select>
+      </el-col>
+      <el-col :xs="12" :sm="10" :md="8" :lg="6" :xl="4">
+        <el-input v-model="url" placeholder="URL"/>
+      </el-col>
+    </el-row>
+    <el-row :gutter="10" style="margin-top: 10px">
+      <el-col :xs="8" :sm="6" :md="4" :lg="3" >
+        <el-input v-model="contentType" placeholder="Content Type"/>
+      </el-col>
+      <el-col :xs="12" :sm="10" :md="8" :lg="6" :xl="4">
+        <el-input v-model="content" placeholder="Content"/>
+      </el-col>
+    </el-row>
 
-      <el-table
-          :data="data.list"
-          style="width: 100%; margin-bottom: 20px">
-        <el-table-column prop="method" label="Method"  />
-        <el-table-column prop="url" label="URL"  />
-        <el-table-column prop="content" label="Content"  />
-        <el-table-column prop="contentType" label="Content Type"  />
-        <el-table-column prop="createdAt" label="Created At" :formatter="formatDate"/>
-      </el-table>
+    <el-row style="margin-top: 10px">
+      <el-col :xs="4" :sm="4" :md="4" :lg="4">
+        <el-date-picker
+            v-model="createdAtRange"
+            type="datetimerange"
+            range-separator="To"
+            start-placeholder="Start date"
+            end-placeholder="End date">
+        </el-date-picker>
+      </el-col>
+    </el-row>
 
-      <div class="example-pagination-block">
-        <el-pagination
-            @current-change="getRequestLogs"
-            @size-change="getRequestLogs"
-            v-model:current-page="body.pageNum"
-            v-model:page-size="body.pageSize"
-            :total="data.total"
-            layout="prev, pager, next, ->, sizes, total"/>
-      </div>
+    <el-row style="margin-top: 10px">
+      <el-button type="primary" @click="filter">Filter</el-button>
+      <el-button @click="reset">Reset</el-button>
+    </el-row>
+
+    <el-divider/>
+
+    <el-table
+        :data="data.list"
+        style="margin-bottom: 20px"
+        :lg="16">
+      <el-table-column prop="method" label="Method"  />
+      <el-table-column prop="url" label="URL"  />
+      <el-table-column prop="content" label="Content"  />
+      <el-table-column prop="contentType" label="Content Type"  />
+      <el-table-column prop="createdAt" label="Created At" :formatter="formatDate"/>
+    </el-table>
+
+    <el-pagination
+        @current-change="getRequestLogs"
+        @size-change="getRequestLogs"
+        v-model:current-page="body.pageNum"
+        v-model:page-size="body.pageSize"
+        :total="data.total"
+        layout="prev, pager, next, ->, sizes, total"/>
   </div>
 </template>
 
 <style>
-  .date-picking{
-    width: 50px;
-  }
+
 </style>
