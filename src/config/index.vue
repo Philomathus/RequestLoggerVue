@@ -50,6 +50,9 @@ export default {
       this.content = '';
       this.createdAtRange = [null, null];
       this.filter();
+    },
+    formatDate(row, col, cellValue) {
+      return cellValue.replace('T', ' ');
     }
   },
   mounted() {
@@ -88,7 +91,7 @@ export default {
       <el-table-column width='200' prop="url" label="URL"  />
       <el-table-column width='200' prop="content" label="Content"  />
       <el-table-column width='200' prop="contentType" label="Content Type"  />
-      <el-table-column width='200' prop="createdAt" label="Date"  />
+      <el-table-column width='200' prop="createdAt" label="Created At" :formatter="formatDate"/>
     </el-table>
     <div class="example-pagination-block">
       <el-pagination
