@@ -27,7 +27,7 @@ export default defineConfig(({ mode, command }) => {
       host: true,
       open: true,
       proxy: {
-        '/api': 'http://16.163.97.24:8080'
+        '/api': 'http://localhost:8080'
       }
     },
     //fix:error:stdin>:7356:1: warning: "@charset" must be the first rule in the file
