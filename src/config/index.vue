@@ -18,6 +18,9 @@ export default {
       content: '',
       contentType: '',
       logLevel:'',
+      source:'',
+      department:'',
+      agentId:'',
       httpMethods: [
         { label: "", value: '' },
         { label: "POST", value: "POST" },
@@ -36,9 +39,6 @@ export default {
         { label: "FATAL", value: "FATAL" },
         { label: "OFF", value: "OFF" },
       ],
-      source:'',
-      department:'',
-      agentId:'',
       createdAtRange: [null, null],
       image: { bgImage: " " }
     }
