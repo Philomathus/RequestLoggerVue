@@ -25,7 +25,8 @@ export default {
         { label: "PATCH", value: "PATCH" },
         { label: "DELETE", value: "DELETE" },
       ],
-      createdAtRange: [null, null]
+      createdAtRange: [null, null],
+      image: { bgImage: " " }
     }
   },
   methods: {
@@ -63,45 +64,65 @@ export default {
 </script>
 <template>
   <div>
-    <el-select v-model="method" placeholder="Select">
-      <el-option
-          v-for="item in httpMethods"
-          :label="item.label"
-          :value="item.value">
-      </el-option>
-    </el-select>
-    <el-input v-model="url" placeholder="URL"></el-input>
-    <el-input v-model="content" placeholder="Content"></el-input>
-    <el-input v-model="contentType" placeholder="Content Type"></el-input>
-    <el-date-picker
-        v-model="createdAtRange"
-        type="datetimerange"
-        range-separator="To"
-        start-placeholder="Start date"
-        end-placeholder="End date">
-    </el-date-picker>
+      <el-row :gutter="5">
+        <el-col :xs="8" :sm="6" :md="4" :lg="3" :xl="1">
+          <el-select v-model="method" placeholder="Select">
+            <el-option
+                v-for="item in httpMethods"
+                :label="item.label"
+                :value="item.value">
+            </el-option>
+          </el-select>
+        </el-col>
+        <el-col :xs="8" :sm="6" :md="4" :lg="3" :xl="1">
+          <el-input v-model="url" placeholder="URL"/>
+        </el-col>
+        <el-col :xs="8" :sm="6" :md="4" :lg="3">
+          <el-input v-model="content" placeholder="Content"/>
+        </el-col>
+        <el-col :xs="8" :sm="6" :md="4" :lg="3">
+          <el-input v-model="contentType" placeholder="Content Type"/>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col style="margin-top: 10px" :xs="2" :sm="2" :md="2" :lg="2">
+          <el-date-picker
+              v-model="createdAtRange"
+              type="datetimerange"
+              range-separator="To"
+              start-placeholder="Start date"
+              end-placeholder="End date">
+          </el-date-picker>
+        </el-col>
+      </el-row>
+      <el-button style="margin-top: 10px" type="primary" @click="filter">Filter</el-button>
+      <el-button style="margin-top: 10px" @click="reset">Reset</el-button>
+      <el-divider/>
 
-    <el-button type="primary" @click="filter">Filter</el-button>
-    <el-button @click="reset">Reset</el-button>
+      <el-table
+          :data="data.list"
+          style="width: 100%; margin-bottom: 20px">
+        <el-table-column prop="method" label="Method"  />
+        <el-table-column prop="url" label="URL"  />
+        <el-table-column prop="content" label="Content"  />
+        <el-table-column prop="contentType" label="Content Type"  />
+        <el-table-column prop="createdAt" label="Created At" :formatter="formatDate"/>
+      </el-table>
 
-    <el-table
-        :data="data.list"
-        style="width: 100%; margin-bottom: 20px">
-      <el-table-column width='200' prop="method" label="Method"  />
-      <el-table-column width='200' prop="url" label="URL"  />
-      <el-table-column width='200' prop="content" label="Content"  />
-      <el-table-column width='200' prop="contentType" label="Content Type"  />
-      <el-table-column width='200' prop="createdAt" label="Created At" :formatter="formatDate"/>
-    </el-table>
-    <div class="example-pagination-block">
-      <el-pagination
-          @current-change="getRequestLogs"
-          @size-change="getRequestLogs"
-          v-model:current-page="body.pageNum"
-          v-model:page-size="body.pageSize"
-          :total="data.total"
-          layout="prev, pager, next, ->, sizes, total"/>
-    </div>
+      <div class="example-pagination-block">
+        <el-pagination
+            @current-change="getRequestLogs"
+            @size-change="getRequestLogs"
+            v-model:current-page="body.pageNum"
+            v-model:page-size="body.pageSize"
+            :total="data.total"
+            layout="prev, pager, next, ->, sizes, total"/>
+      </div>
   </div>
 </template>
 
+<style>
+  .date-picking{
+    width: 50px;
+  }
+</style>
