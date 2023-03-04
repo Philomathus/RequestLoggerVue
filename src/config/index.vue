@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     getRequestLogs() {
-      axios.post("http://localhost:42069/api/requestLogger/getByPageWithFilter", this.body)
+      axios.post("/api/requestLogger/getByPageWithFilter", this.body)
       .then(res => this.data = res.data.data)
       .catch(err => console.log('Axios Error:', err) );
     },
