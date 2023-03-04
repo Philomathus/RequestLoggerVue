@@ -89,7 +89,7 @@ export default {
     <el-header>
       <el-row :gutter="10">
         <el-col :xs="8" :sm="6" :md="4" :lg="3" >
-          <el-select v-model="method" placeholder="Select" style="width: 100%">
+          <el-select v-model="method" placeholder="Method" style="width: 100%">
             <el-option
                 v-for="item in httpMethods"
                 :label="item.label"
@@ -98,7 +98,7 @@ export default {
           </el-select>
         </el-col>
         <el-col :xs="8" :sm="6" :md="4" :lg="3" >
-          <el-select v-model="logLevel" placeholder="Select" style="width: 100%">
+          <el-select v-model="logLevel" placeholder="Log Level" style="width: 100%">
             <el-option
                 v-for="item in logLevels"
                 :label="item.label"
