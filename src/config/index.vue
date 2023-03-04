@@ -17,14 +17,29 @@ export default {
       url: '',
       content: '',
       contentType: '',
+      logLevel:'',
       httpMethods: [
-        { label: "ALL", value: '' },
+        { label: "", value: '' },
         { label: "POST", value: "POST" },
         { label: "GET", value: "GET" },
         { label: "PUT", value: "PUT" },
         { label: "PATCH", value: "PATCH" },
         { label: "DELETE", value: "DELETE" },
       ],
+      logLevels: [
+        { label: "", value: '' },
+        { label: "ALL", value: 'ALL' },
+        { label: "TRACE", value: "TRACE" },
+        { label: "DEBUG", value: "DEBUG" },
+        { label: "INFO", value: "INFO" },
+        { label: "WARN", value: "WARN" },
+        { label: "ERROR", value: "ERROR" },
+        { label: "FATAL", value: "FATAL" },
+        { label: "OFF", value: "OFF" },
+      ],
+      source:'',
+      department:'',
+      agentId:'',
       createdAtRange: [null, null],
       image: { bgImage: " " }
     }
@@ -37,6 +52,10 @@ export default {
     },
     filter() {
       this.body.method = this.method;
+      this.body.logLevel = this.logLevel;
+      this.body.source = this.source;
+      this.body.department = this.department;
+      this.body.agentId = this.agentId;
       this.body.url = this.url;
       this.body.contentType = this.contentType;
       this.body.content = this.content;
@@ -49,6 +68,10 @@ export default {
       this.url = '';
       this.contentType = '';
       this.content = '';
+      this.logLevel = '';
+      this.source = '';
+      this.department = '';
+      this.agentId = '';
       this.createdAtRange = [null, null];
       this.filter();
     },
@@ -75,16 +98,34 @@ export default {
             </el-option>
           </el-select>
         </el-col>
-        <el-col :xs="12" :sm="10" :md="8" :lg="6" :xl="4">
+        <el-col :xs="8" :sm="6" :md="4" :lg="3" >
+          <el-select v-model="logLevel" placeholder="Select" style="width: 100%">
+            <el-option
+                v-for="item in logLevels"
+                :label="item.label"
+                :value="item.value">
+            </el-option>
+          </el-select>
+        </el-col>
+        <el-col :xs="8" :sm="6" :md="4" :lg="3" >
           <el-input v-model="url" placeholder="URL"/>
+        </el-col>
+        <el-col :xs="8" :sm="6" :md="4" :lg="3" >
+          <el-input v-model="department" placeholder="Department"/>
         </el-col>
       </el-row>
       <el-row :gutter="10" style="margin-top: 10px">
         <el-col :xs="8" :sm="6" :md="4" :lg="3" >
           <el-input v-model="contentType" placeholder="Content Type"/>
         </el-col>
-        <el-col :xs="12" :sm="10" :md="8" :lg="6" :xl="4">
+        <el-col :xs="8" :sm="6" :md="4" :lg="3" >
           <el-input v-model="content" placeholder="Content"/>
+        </el-col>
+        <el-col :xs="8" :sm="6" :md="4" :lg="3" >
+          <el-input v-model="source" placeholder="Source"/>
+        </el-col>
+        <el-col :xs="8" :sm="6" :md="4" :lg="3" >
+          <el-input v-model="agentId" placeholder="Agent ID"/>
         </el-col>
       </el-row>
       <el-row style="margin-top: 10px">
