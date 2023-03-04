@@ -64,57 +64,62 @@ export default {
 </script>
 <template>
   <div>
-    <el-row :gutter="10">
-      <el-col :xs="8" :sm="6" :md="4" :lg="3" >
-        <el-select v-model="method" placeholder="Select" style="width: 100%">
-          <el-option
-              v-for="item in httpMethods"
-              :label="item.label"
-              :value="item.value">
-          </el-option>
-        </el-select>
-      </el-col>
-      <el-col :xs="12" :sm="10" :md="8" :lg="6" :xl="4">
-        <el-input v-model="url" placeholder="URL"/>
-      </el-col>
-    </el-row>
-    <el-row :gutter="10" style="margin-top: 10px">
-      <el-col :xs="8" :sm="6" :md="4" :lg="3" >
-        <el-input v-model="contentType" placeholder="Content Type"/>
-      </el-col>
-      <el-col :xs="12" :sm="10" :md="8" :lg="6" :xl="4">
-        <el-input v-model="content" placeholder="Content"/>
-      </el-col>
-    </el-row>
-
-    <el-row style="margin-top: 10px">
-      <el-col :xs="4" :sm="4" :md="4" :lg="4">
-        <el-date-picker
-            v-model="createdAtRange"
-            type="datetimerange"
-            range-separator="To"
-            start-placeholder="Start date"
-            end-placeholder="End date">
-        </el-date-picker>
-      </el-col>
-    </el-row>
-
-    <el-row style="margin-top: 10px">
-      <el-button type="primary" @click="filter">Filter</el-button>
-      <el-button @click="reset">Reset</el-button>
-    </el-row>
-
-    <el-divider/>
-
+    <el-header>
+      <el-row :gutter="10">
+        <el-col :xs="8" :sm="6" :md="4" :lg="3" >
+          <el-select v-model="method" placeholder="Select" style="width: 100%">
+            <el-option
+                v-for="item in httpMethods"
+                :label="item.label"
+                :value="item.value">
+            </el-option>
+          </el-select>
+        </el-col>
+        <el-col :xs="12" :sm="10" :md="8" :lg="6" :xl="4">
+          <el-input v-model="url" placeholder="URL"/>
+        </el-col>
+      </el-row>
+      <el-row :gutter="10" style="margin-top: 10px">
+        <el-col :xs="8" :sm="6" :md="4" :lg="3" >
+          <el-input v-model="contentType" placeholder="Content Type"/>
+        </el-col>
+        <el-col :xs="12" :sm="10" :md="8" :lg="6" :xl="4">
+          <el-input v-model="content" placeholder="Content"/>
+        </el-col>
+      </el-row>
+      <el-row style="margin-top: 10px">
+        <el-col :xs="4" :sm="4" :md="4" :lg="4">
+          <el-date-picker
+              v-model="createdAtRange"
+              type="datetimerange"
+              range-separator="To"
+              start-placeholder="Start date"
+              end-placeholder="End date">
+          </el-date-picker>
+          <el-button style="margin-top:10px" type="primary" @click="filter">Filter</el-button>
+          <el-button style="margin-top:10px" @click="reset">Reset</el-button>
+        </el-col>
+      </el-row>
+    </el-header>
+    <el-divider style="margin-top:110px"/>
     <el-table
         :data="data.list"
-        style="margin-bottom: 20px; border-radius: 4px"
-        :lg="16">
+        style="margin-bottom: 20px; margin-top:40px; border-radius: 4px"
+        :lg="16"
+        v-loading="loading"
+        element-loading-text="Loading..."
+        :element-loading-spinner="svg"
+        element-loading-svg-view-box="-10, -10, 50, 50"
+        element-loading-background="rgba(122, 122, 122, 0.8)">
       <el-table-column prop="method" label="Method"  />
       <el-table-column prop="url" label="URL"  />
+      <el-table-column prop="source" label="Source"  />
       <el-table-column prop="content" label="Content"  />
       <el-table-column prop="contentType" label="Content Type"  />
+      <el-table-column prop="agent_id" label="Agent ID"  />
+      <el-table-column prop="department" label="Department"  />
       <el-table-column prop="createdAt" label="Created At" :formatter="formatDate"/>
+      <el-table-column prop="log_level" label="Log Level"  />
     </el-table>
 
     <el-pagination

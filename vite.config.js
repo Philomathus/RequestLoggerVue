@@ -27,7 +27,7 @@ export default defineConfig(({ mode, command }) => {
       host: true,
       open: true,
       proxy: {
-        '/api': 'http://16.163.97.24:443'
+        '/api': 'http://10.5.9.214:443'
       }
     },
     //fix:error:stdin>:7356:1: warning: "@charset" must be the first rule in the file
