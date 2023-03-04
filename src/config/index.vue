@@ -108,7 +108,7 @@ export default {
 
     <el-table
         :data="data.list"
-        style="margin-bottom: 20px"
+        style="margin-bottom: 20px; border-radius: 4px"
         :lg="16">
       <el-table-column prop="method" label="Method"  />
       <el-table-column prop="url" label="URL"  />
