@@ -39,7 +39,7 @@ export default {
       ],
       source:'',
       department:'',
-      agentId:'',
+      contentId:'',
       createdAtRange: [null, null],
       image: { bgImage: " " }
     }
@@ -55,7 +55,7 @@ export default {
       this.body.logLevel = this.logLevel;
       this.body.source = this.source;
       this.body.department = this.department;
-      this.body.agentId = this.agentId;
+      this.body.contentId = this.contentId;
       this.body.url = this.url;
       this.body.contentType = this.contentType;
       this.body.content = this.content;
@@ -71,7 +71,7 @@ export default {
       this.logLevel = '';
       this.source = '';
       this.department = '';
-      this.agentId = '';
+      this.contentId = '';
       this.createdAtRange = [null, null];
       this.filter();
     },
@@ -125,7 +125,7 @@ export default {
           <el-input v-model="source" placeholder="Source"/>
         </el-col>
         <el-col :xs="8" :sm="6" :md="4" :lg="3" >
-          <el-input v-model="agentId" placeholder="Agent ID"/>
+          <el-input v-model="contentId" placeholder="Content ID"/>
         </el-col>
       </el-row>
       <el-row style="margin-top: 10px">
