@@ -23,11 +23,11 @@ export default defineConfig(({ mode, command }) => {
     },
     // vite 相关配置
     server: {
-      port: 443,
+      port:  42069,
       host: true,
       open: true,
       proxy: {
-        '/api': 'http://localhost:41010'
+        '/api': 'http://10.5.9.214:41010'
       }
     },
     //fix:error:stdin>:7356:1: warning: "@charset" must be the first rule in the file
