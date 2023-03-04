@@ -28,7 +28,6 @@ export default {
       ],
       logLevels: [
         { label: "", value: '' },
-        { label: "ALL", value: 'ALL' },
         { label: "TRACE", value: "TRACE" },
         { label: "DEBUG", value: "DEBUG" },
         { label: "INFO", value: "INFO" },
