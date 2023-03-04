@@ -156,10 +156,10 @@ export default {
       <el-table-column prop="source" label="Source"  />
       <el-table-column prop="content" label="Content"  />
       <el-table-column prop="contentType" label="Content Type"  />
-      <el-table-column prop="agent_id" label="Agent ID"  />
+      <el-table-column prop="agentId" label="Agent ID"  />
       <el-table-column prop="department" label="Department"  />
       <el-table-column prop="createdAt" label="Created At" :formatter="formatDate"/>
-      <el-table-column prop="log_level" label="Log Level"  />
+      <el-table-column prop="logLevel" label="Log Level"  />
     </el-table>
 
     <el-pagination
